@@ -8,7 +8,7 @@
             [tasuke.methods.packet :as packet]))
 
 ;; ROOT/20-actors/tasuke via *file* (…/tasuke/methods/test_packet.cljc → up 2 = tasuke)
-#?(:clj (def ^:private actor-dir (-> *file* io/file .getParentFile .getParentFile)))
+#?(:clj (def ^:private actor-dir (io/file ".")))
 #?(:clj (def ^:private seed-file (io/file actor-dir "data" "seed-cybercrime-cases.kotoba.edn")))
 
 (defn- cases [] (get (tedn/load-edn seed-file) ":case/batch"))

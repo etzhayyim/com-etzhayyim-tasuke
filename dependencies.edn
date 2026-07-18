@@ -1,0 +1,10 @@
+{:repository/name "com-etzhayyim-tasuke"
+ :dependencies/runtime []
+ :dependencies/integrates
+ [{:name "com-etzhayyim-chigiri" :revision "755dcea6a865de34f30fc18f8b8405e3129517f4"}
+  {:name "com-etzhayyim-danjo" :revision "040520906acd07478391f80170181e7cf7919391"}
+  {:name "com-etzhayyim-himotoki" :revision "7b7798f933f1a7d5883c2b8bfb42d125605b5bd4"}
+  {:name "com-etzhayyim-kokoro" :revision "e88ebbb23fd1f87c7af3b722d02538a55af005ad"}
+  {:name "com-etzhayyim-kurashimori" :revision "b878a332911b05583882ad29b7c786d9b2467caf"}
+  {:name "com-etzhayyim-tadori" :revision "beb75a8ed86e28e4f4151fa9bc670d95ea32e152"}
+  {:name "com-etzhayyim-toritsugi" :revision "dbb96e5a96418313352446f062e37277263b8802"}]}

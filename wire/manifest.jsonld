@@ -23,7 +23,7 @@
   },
   "tier": "Tier-B",
   "scope": {
-    "phase": "R0 — ontology + 6 lexicons + 5 cells (ALL coded state machines: intake_triage / evidence_preservation / police_report / platform_abuse / account_recovery; all .solve() RuntimeError at R0) + triage engine (methods/triage.py — scam-kind classifier + severity + free-window routing + first-response checklist + deadline notes; the G1/G4/G7 anchor) + document generator (methods/report_gen.py — member-authored 被害届/被害状況報告書/証拠目録/被害額算定書/銀行組戻し依頼/プラットフォーム依頼/アカウント復旧手順, the G2/G3 anchor) + evidence engine (methods/evidence.py — chain-of-custody sha256 + PII-by-reference, the G6 anchor) + end-to-end membrane (methods/analyze.py — intake→triage→generate→assert-free over the :representative seed; every case journey costs ¥0) + :representative seed (5 victim cases + 9 FREE public windows) + one-command runner. Registered in INFRA_ACTORS → did:web:etzhayyim.com:actor:tasuke. Design + offline generation only; NO live filing / sending / submission.",
+    "phase": "R0 — ontology + 6 lexicons + 5 cells (ALL coded state machines: intake_triage / evidence_preservation / police_report / platform_abuse / account_recovery; all .solve() RuntimeError at R0) + triage engine (src/tasuke/methods/triage.cljc — scam-kind classifier + severity + free-window routing + first-response checklist + deadline notes; the G1/G4/G7 anchor) + document generator (src/tasuke/methods/report_gen.cljc — member-authored 被害届/被害状況報告書/証拠目録/被害額算定書/銀行組戻し依頼/プラットフォーム依頼/アカウント復旧手順, the G2/G3 anchor) + evidence engine (src/tasuke/methods/evidence.cljc — chain-of-custody sha256 + PII-by-reference, the G6 anchor) + end-to-end membrane (src/tasuke/methods/analyze.cljc — intake→triage→generate→assert-free over the :representative seed; every case journey costs ¥0) + :representative seed (5 victim cases + 9 FREE public windows) + one-command runner. Registered in INFRA_ACTORS → did:web:etzhayyim.com:actor:tasuke. Design + offline generation only; NO live filing / sending / submission.",
     "scopeBoundary": "Free, member-authored, member-submitted cybercrime-victim recovery support (relief documents + free public windows), design-only",
     "exclusions": [
       "any fee / charge / subscription — cash≡0, unrepresentable (N4, G1)",
@@ -94,8 +94,8 @@
       "charterRider": "/90-docs/adr/2605192200-etzhayyim-ip-free-release-charter-rider.md",
       "murakumoOnly": "/90-docs/adr/2605215000-etzhayyim-inference-murakumo-only-no-runpod.md"
     },
-    "schema": "/00-contracts/schemas/cybercrime-victim-support-ontology.kotoba.edn",
-    "seed": "/20-actors/tasuke/data/seed-cybercrime-cases.kotoba.edn",
+    "schema": "schema/cybercrime-victim-support-ontology.kotoba.edn",
+    "seed": "data/seed-cybercrime-cases.kotoba.edn",
     "siblings": {
       "tadori": "on-chain tx trace for crypto-theft cases",
       "kurashimori": "consumer-protection concierge (事業者 disputes)",

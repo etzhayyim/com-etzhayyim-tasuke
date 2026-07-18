@@ -7,7 +7,7 @@
             [tasuke.methods.edn :as tedn]
             [tasuke.methods.triage :as triage]))
 
-#?(:clj (def actor-dir (-> *file* io/file .getParentFile .getParentFile)))
+#?(:clj (def actor-dir (io/file ".")))
 #?(:clj (def SEED (delay (tedn/load-edn (io/file actor-dir "data" "seed-cybercrime-cases.kotoba.edn")))))
 
 (defn- intake [& {:as over}]

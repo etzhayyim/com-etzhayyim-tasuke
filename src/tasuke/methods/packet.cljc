@@ -28,7 +28,7 @@
 ;; ── _ja_kind reaches into report_gen's private JA map (mirrors Python rg._ja_kind) ──
 (defn- ja-kind [kind] ((deref #'tasuke.methods.report-gen/ja-kind) kind))
 
-#?(:clj (def ^:private actor-root (-> *file* io/file .getParentFile .getParentFile)))
+#?(:clj (def ^:private actor-root (io/file ".")))
 #?(:clj (def ^:private seed-file (io/file actor-root "data" "seed-cybercrime-cases.kotoba.edn")))
 
 (defn- to-int

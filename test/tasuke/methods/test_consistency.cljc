@@ -6,31 +6,27 @@
   (:require [clojure.test :refer [deftest is run-tests]]
             [clojure.string :as str]
             #?(:clj [clojure.java.io :as io])
-            #?(:clj [cheshire.core :as json])
             [tasuke.methods.edn :as tedn]
             [tasuke.methods.triage :as triage]))
 
 ;; ROOT/20-actors/tasuke via *file* (…/tasuke/methods/test_consistency.cljc → up 2 = tasuke)
-#?(:clj (def ^:private actor-dir (-> *file* io/file .getParentFile .getParentFile)))
-#?(:clj (def ^:private repo-dir (-> actor-dir .getParentFile .getParentFile)))   ;; up 2 = repo root
+#?(:clj (def ^:private actor-dir (io/file ".")))
 #?(:clj (def ^:private lex-dir (io/file actor-dir "lex")))
-#?(:clj (def ^:private cells-dir (io/file actor-dir "cells")))
-#?(:clj (def ^:private ontology-file (io/file repo-dir "00-contracts" "schemas" "cybercrime-victim-support-ontology.kotoba.edn")))
-#?(:clj (def ^:private profile-seed-file (io/file repo-dir "00-contracts" "schemas" "actor-profile-seed.kotoba.edn")))
+#?(:clj (def ^:private cells-dir (io/file "src" "tasuke" "cells")))
+#?(:clj (def ^:private ontology-file (io/file "schema" "cybercrime-victim-support-ontology.kotoba.edn")))
 
-#?(:clj (defn- manifest [] (json/parse-string (slurp (io/file actor-dir "manifest.jsonld")))))
+#?(:clj (defn- manifest [] (:actor/manifest (clojure.edn/read-string (slurp (io/file actor-dir "manifest.edn"))))))
 
 ;; ── manifest cells ↔ cell tree ──────────────────────────────────────────────
 (deftest test-manifest-cells-have-dirs-and-state-machines
   (doseq [cell (get (manifest) "cells")]
     (let [d (io/file cells-dir (get cell "name"))]
-      (is (.isFile (io/file d "cell.py")) (str "missing " (get cell "name") "/cell.py"))
-      (is (.isFile (io/file d "state_machine.py")) (str "missing " (get cell "name") "/state_machine.py")))))
+      (is (.isFile (io/file d "state_machine.cljc")) (str "missing " (get cell "name") "/state_machine.cljc")))))
 
 (deftest test-every-cell-dir-is-in-the-manifest
   (let [declared (set (map #(get % "name") (get (manifest) "cells")))
         on-disk (set (->> (.listFiles cells-dir)
-                          (filter #(and (.isDirectory %) (.isFile (io/file % "cell.py"))))
+                          (filter #(and (.isDirectory %) (.isFile (io/file % "state_machine.cljc"))))
                           (map #(.getName %))))]
     (is (= on-disk declared) (str "cell tree " on-disk " != manifest " declared))))
 
@@ -81,17 +77,11 @@
       (is (contains? #{":representative" ":authoritative"} (get w ":registry/sourcing"))))))
 
 ;; ── actor-profile seed registration matches the manifest ────────────────────
-(deftest test-actor-profile-seed-has-tasuke
-  (let [blob (slurp profile-seed-file)
-        m (manifest)]
-    (is (str/includes? blob "did:web:etzhayyim.com:actor:tasuke"))
-    (is (str/includes? (str/replace blob "\"" "")
-                       (str/replace (get-in m ["references" "schema"]) #"^/+" "")))
-    (is (str/includes? blob "com.etzhayyim.tasuke"))))
+(deftest test-actor-owned-schema
+  (is (.isFile ontology-file)))
 
 ;; ── ADR file referenced by the manifest exists ──────────────────────────────
-(deftest test-adr-file-exists
-  (let [adr (io/file repo-dir (str/replace (get-in (manifest) ["references" "adr" "master"]) #"^/+" ""))]
-    (is (.isFile adr) (str "ADR not found: " adr))))
+(deftest test-manifest-is-canonical-edn
+  (is (= "tasuke" (:actor/id (clojure.edn/read-string (slurp "manifest.edn"))))))
 
 #?(:clj (defn -main [& _] (run-tests 'tasuke.methods.test-consistency)))

@@ -19,7 +19,7 @@
             [tasuke.methods.report-gen :as rg]
             [tasuke.methods.triage :as triage]))
 
-#?(:clj (def ^:private actor-dir (-> *file* io/file .getParentFile .getParentFile)))
+#?(:clj (def ^:private actor-dir (io/file ".")))
 
 ;; a tiny encrypted-evidence stand-in (G6 — ref + hash only, never plaintext)
 (def ^:private DEMO-EVIDENCE

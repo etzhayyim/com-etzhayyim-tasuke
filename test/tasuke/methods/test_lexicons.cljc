@@ -7,10 +7,9 @@
             [tasuke.methods.edn :as tedn]))
 
 ;; ROOT/20-actors/tasuke via *file* (…/tasuke/methods/test_lexicons.cljc → up 2 = tasuke)
-#?(:clj (def ^:private actor-dir (-> *file* io/file .getParentFile .getParentFile)))
-#?(:clj (def ^:private repo-dir (-> actor-dir .getParentFile .getParentFile)))
+#?(:clj (def ^:private actor-dir (io/file ".")))
 #?(:clj (def ^:private lex-dir (io/file actor-dir "lex")))
-#?(:clj (def ^:private ontology-file (io/file repo-dir "00-contracts" "schemas" "cybercrime-victim-support-ontology.kotoba.edn")))
+#?(:clj (def ^:private ontology-file (io/file "schema" "cybercrime-victim-support-ontology.kotoba.edn")))
 
 (def ^:private LEXICONS
   ["victimIntake" "evidenceItem" "policeReportDraft" "platformRequest" "recoveryPlan" "supportCase"])

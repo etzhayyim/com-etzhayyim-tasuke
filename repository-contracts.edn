@@ -1,0 +1,14 @@
+{:repository/name "com-etzhayyim-tasuke"
+ :repository/category :actor
+ :repository/canonical-format :edn
+ :repository/canonical-metadata "manifest.edn"
+ :repository/canonical-identity "identity.edn"
+ :repository/dependencies "dependencies.edn"
+ :repository/source-roots ["src"]
+ :repository/test-roots ["test"]
+ :repository/canonical-data ["data/seed-cybercrime-cases.kotoba.edn"
+                             "schema/cybercrime-victim-support-ontology.kotoba.edn"
+                             "lex"]
+ :repository/external-wire "wire"
+ :repository/legacy-artifacts-forbidden ["actor.edn" "manifest.jsonld"
+                                         "methods/publish.bb" "run_tests.sh"]}
